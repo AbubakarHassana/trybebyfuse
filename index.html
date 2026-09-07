@@ -103,9 +103,14 @@
   .mobile-social a:hover{background:var(--orange); border-color:var(--orange); color:#fff;}
 
   @media (max-width:980px){
-    .main-nav, .topbar-actions .btn-outline{display:none;}
+    .main-nav, .topbar-actions .btn-outline, .topbar-actions .nav-dropdown{display:none;}
     .menu-toggle{display:flex;}
   }
+  #langToggle{gap:8px; padding:9px 14px 9px 12px;}
+  #langToggle svg{color:var(--navy-deep); flex-shrink:0;}
+  .mobile-lang-row{display:flex; gap:8px; padding:6px 10px 4px;}
+  .lang-pill{flex:1; padding:9px 0; text-align:center; border-radius:10px; border:1px solid var(--line); background:none; font-weight:600; font-size:0.85rem; color:var(--ink); cursor:pointer;}
+  .lang-pill.active{background:var(--orange); border-color:var(--orange); color:#fff;}
 
   /* ---------- Page shell ---------- */
   .page{display:none;}
@@ -127,11 +132,20 @@
   .hero-badge .label{font-size:0.8rem; color:#D8D2C2; margin-top:2px;}
 
   /* ---------- Stat strip ---------- */
-  .statbar{border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:60px; background:var(--paper-soft);}
-  .statbar .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:32px 28px;}
-  .stat{border-left:2px solid var(--orange); padding-left:16px;}
-  .stat .num{font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--navy-deep); font-variant-numeric:tabular-nums;}
-  .stat .cap{font-size:0.87rem; color:var(--sub); margin-top:4px;}
+  .statbar{margin-top:60px; background:var(--paper); padding:72px 0 56px; position:relative; overflow:hidden;}
+  .stat-row{display:flex; justify-content:center; flex-wrap:wrap;}
+  .stat-item{padding:0 44px; text-align:center; border-right:1px solid var(--line);}
+  .stat-item:last-child{border-right:none;}
+  .stat-num-wrap{display:flex; align-items:baseline; justify-content:center; gap:2px; font-family:var(--font-display); font-size:clamp(2.1rem,4vw,2.7rem); font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums;}
+  .stat-num-wrap .plus{color:var(--orange);}
+  .stat-cap{margin-top:10px; font-size:0.92rem; color:var(--sub);}
+  .stat-doodle{display:block; margin:36px auto 0; opacity:0.9;}
+
+  @media (max-width:920px){
+    .stat-row{flex-direction:column; align-items:center; gap:28px;}
+    .stat-item{border-right:none; border-bottom:1px solid var(--line); padding:0 0 24px; width:100%; max-width:320px;}
+    .stat-item:last-child{border-bottom:none; padding-bottom:0;}
+  }
 
   /* ---------- Generic sections ---------- */
   section{padding:80px 0;}
@@ -151,7 +165,6 @@
   .feature-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
   .feature-card{border:1px solid var(--line); border-radius:22px; padding:28px; background:var(--paper); transition:border-color .2s ease;}
   .feature-card:hover{border-color:var(--orange);}
-  .feature-icon{width:52px; height:52px; border-radius:16px; background:var(--orange-tint); display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:18px;}
   .feature-card .tag{font-size:0.78rem; font-weight:700; color:var(--orange-deep); letter-spacing:0.02em;}
   .feature-card h3{font-size:1.15rem; margin-top:4px;}
   .feature-card p{margin-top:10px; font-size:0.95rem; color:var(--sub);}
@@ -219,23 +232,37 @@
   .contact-card a{color:var(--orange-deep); font-weight:600;}
 
   /* ---------- Footer ---------- */
-  footer{border-top:1px solid var(--line); padding:56px 0 32px; background:var(--paper-soft);}
-  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px;}
-  .foot-brand p{color:var(--sub); margin-top:14px; font-size:0.94rem; max-width:34ch;}
-  .foot-col h4{font-size:0.92rem; margin-bottom:14px; color:var(--navy-deep);}
-  .foot-col a, .foot-col p{display:block; font-size:0.92rem; color:var(--sub); margin-bottom:10px; cursor:pointer; background:none; border:none; text-align:left; padding:0;}
-  .foot-col a:hover, .foot-col button:hover{color:var(--orange-deep);}
-  .foot-bottom{margin-top:44px; padding-top:22px; border-top:1px solid var(--line); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:0.85rem; color:#8A8578;}
+  footer{padding:72px 0 32px; background:var(--navy-deep); color:#D8D2C2;}
+  .foot-top{display:grid; grid-template-columns:1fr 1fr 1fr 1.3fr; gap:36px;}
+  .foot-col h4{font-size:1.02rem; margin-bottom:18px; color:var(--orange); font-family:var(--font-display); font-weight:700;}
+  .foot-col a, .foot-col button{display:block; font-size:0.94rem; color:#D8D2C2; margin-bottom:14px; cursor:pointer; background:none; border:none; text-align:left; padding:0; font-family:var(--font-body);}
+  .foot-col a:hover, .foot-col button:hover{color:#fff;}
+  .subscribe-card{background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:26px;}
+  .subscribe-card h4{color:#fff; font-size:1.15rem; margin-bottom:16px; font-family:var(--font-display); font-weight:700;}
+  .subscribe-form{display:flex; border-radius:12px; overflow:hidden; background:#fff;}
+  .subscribe-form input{flex:1; border:none; padding:13px 16px; font-size:0.92rem; font-family:var(--font-body); outline:none; color:var(--ink); min-width:0;}
+  .subscribe-form input::placeholder{color:var(--orange-deep); opacity:0.7;}
+  .subscribe-form button{border:none; background:var(--orange); color:#fff; padding:0 18px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .subscribe-form button:hover{background:var(--orange-deep);}
+  .subscribe-note{font-size:0.86rem; color:#B9B2A0; margin-top:14px;}
+  .subscribe-success{font-size:0.88rem; color:var(--yellow); margin-top:12px; display:none;}
+  .subscribe-success.show{display:block;}
+  .foot-divider{border:none; border-top:1px solid rgba(216,210,194,0.2); margin:48px 0 26px;}
+  .foot-bottom{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .foot-bottom .brand{color:#fff;}
+  .foot-copy{font-size:0.88rem; color:#B9B2A0;}
+  .foot-social{display:flex; gap:12px;}
+  .foot-social a{width:40px; height:40px; border-radius:50%; border:1px solid rgba(216,210,194,0.3); display:flex; align-items:center; justify-content:center; color:#D8D2C2; font-size:0.8rem; font-weight:700;}
+  .foot-social a:hover{background:var(--orange); border-color:var(--orange); color:#fff;}
 
   /* ---------- Responsive ---------- */
   @media (max-width:920px){
     .hero-grid, .about-grid, .detail-grid, .cta-band, .page-hero .wrap, .contact-grid{grid-template-columns:1fr;}
-    .statbar .wrap{grid-template-columns:repeat(2,1fr);}
     .pillars, .feature-grid, .strip-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
     .gallery-grid .g-tall{grid-row:span 1;}
     .cta-band-actions{justify-content:flex-start;}
-    .foot-grid{grid-template-columns:1fr 1fr;}
+    .foot-top{grid-template-columns:1fr 1fr;}
     .hero-badge{position:static; margin-top:16px; max-width:none;}
     .detail-side{position:static;}
     .founder-strip{flex-direction:column; align-items:flex-start;}
@@ -244,7 +271,7 @@
     .topbar-actions .btn-outline{display:none;}
     section{padding:60px 0;}
     .gallery-grid{grid-template-columns:1fr 1fr;}
-    .foot-grid{grid-template-columns:1fr;}
+    .foot-top{grid-template-columns:1fr;} .subscribe-card{grid-column:1/-1;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -263,11 +290,11 @@
     </button>
 
     <nav class="main-nav" aria-label="Main menu">
-      <button class="nav-item" data-page="home">Home</button>
-      <button class="nav-item" data-page="about">About Us</button>
+      <button class="nav-item" data-page="home" data-i18n="navHome">Home</button>
+      <button class="nav-item" data-page="about" data-i18n="navAbout">About Us</button>
       <div class="nav-dropdown">
         <button class="nav-dropdown-toggle" id="initToggle" aria-expanded="false" aria-controls="initPanel">
-          Initiatives <span class="chev">⌄</span>
+          <span data-i18n="navInitiatives">Initiatives</span> <span class="chev">⌄</span>
         </button>
         <div class="nav-dropdown-panel" id="initPanel">
           <button class="nav-item" data-page="scholarship">TrybebyFUSE Scholarship Fund (TTSF)</button>
@@ -275,12 +302,24 @@
           <button class="nav-item" data-page="mentorship">TrybebyFUSE Mentorship Initiative</button>
         </div>
       </div>
-      <button class="nav-item" data-page="contact">Contact</button>
+      <button class="nav-item" data-page="contact" data-i18n="navContact">Contact</button>
     </nav>
 
     <div class="topbar-actions">
-      <a class="btn btn-outline" href="https://www.instagram.com/trybebyfuse/" target="_blank" rel="noopener">Follow us</a>
-      <a class="btn btn-primary" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener">Join us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" id="langToggle" aria-expanded="false" aria-controls="langPanel" aria-label="Choose language">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span id="langLabel">English</span> <span class="chev">⌄</span>
+        </button>
+        <div class="nav-dropdown-panel" id="langPanel" style="min-width:160px;">
+          <button class="nav-item lang-item active" data-lang="en">English</button>
+          <button class="nav-item lang-item" data-lang="yo">Yorùbá</button>
+          <button class="nav-item lang-item" data-lang="ig">Igbo</button>
+          <button class="nav-item lang-item" data-lang="ha">Hausa</button>
+        </div>
+      </div>
+      <a class="btn btn-outline" href="https://www.instagram.com/trybebyfuse/" target="_blank" rel="noopener" data-i18n="followUs">Follow us</a>
+      <a class="btn btn-primary" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener" data-i18n="joinUs">Join us</a>
       <button class="menu-toggle" id="openMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
@@ -289,24 +328,30 @@
 
   <div class="mobile-nav" id="mobileNav">
     <div class="mobile-nav-inner">
-      <button class="nav-item" data-page="home">Home</button>
-      <button class="nav-item" data-page="about">About Us</button>
+      <button class="nav-item" data-page="home" data-i18n="navHome">Home</button>
+      <button class="nav-item" data-page="about" data-i18n="navAbout">About Us</button>
       <button class="side-parent" id="mobileInitToggle" aria-expanded="false" aria-controls="mobileInitSub">
-        Initiatives <span class="chev">⌄</span>
+        <span data-i18n="navInitiatives">Initiatives</span> <span class="chev">⌄</span>
       </button>
       <div class="mobile-sub-nav" id="mobileInitSub">
         <button class="nav-item" data-page="scholarship">TrybebyFUSE Scholarship Fund (TTSF)</button>
         <button class="nav-item" data-page="kiti">Kids in Tech Initiative (KITI)</button>
         <button class="nav-item" data-page="mentorship">TrybebyFUSE Mentorship Initiative</button>
       </div>
-      <button class="nav-item" data-page="contact">Contact</button>
+      <button class="nav-item" data-page="contact" data-i18n="navContact">Contact</button>
+      <div class="mobile-lang-row">
+        <button class="lang-pill lang-item active" data-lang="en">EN</button>
+        <button class="lang-pill lang-item" data-lang="yo">YO</button>
+        <button class="lang-pill lang-item" data-lang="ig">IG</button>
+        <button class="lang-pill lang-item" data-lang="ha">HA</button>
+      </div>
       <div class="mobile-nav-foot">
         <div class="mobile-social">
           <a href="https://www.instagram.com/trybebyfuse/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
           <a href="https://x.com/TrybebyFUSE" target="_blank" rel="noopener" aria-label="X">X</a>
           <a href="https://medium.com/@trybebyfuse" target="_blank" rel="noopener" aria-label="Medium">Md</a>
         </div>
-        <a class="btn btn-primary" style="justify-content:center;" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener">Join our community</a>
+        <a class="btn btn-primary" style="justify-content:center;" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener" data-i18n="joinCommunity">Join our community</a>
       </div>
     </div>
   </div>
@@ -320,12 +365,12 @@
       <div class="hero-curve"></div>
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow-tag">Powered by FUSE Varsity</span>
-          <h1>Show me your Trybe, and I'll show you where you're headed.</h1>
-          <p class="lede">TrybebyFUSE is a growth and learning community for young Africans — a place where learning meets action, and ambition meets opportunity. Members build career-ready skills, get matched with mentors, and turn potential into progress, together.</p>
+          <span class="eyebrow-tag" data-i18n="heroEyebrow">Powered by FUSE Varsity</span>
+          <h1 data-i18n="heroHeading">Show me your Trybe, and I'll show you where you're headed.</h1>
+          <p class="lede" data-i18n="heroLede">TrybebyFUSE is a growth and learning community for young Africans — a place where learning meets action, and ambition meets opportunity. Members build career-ready skills, get matched with mentors, and turn potential into progress, together.</p>
           <div class="hero-ctas">
-            <button class="btn btn-primary nav-item" data-page="kiti">See our initiatives</button>
-            <a class="btn btn-outline" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener">Join our community</a>
+            <button class="btn btn-primary nav-item" data-page="kiti" data-i18n="heroCta1">See our initiatives</button>
+            <a class="btn btn-outline" href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdO9m8qEs0v-Ty6JZaTdBzGoyozpxgMWlEzR5XFXJwHnlnNcg/viewform" target="_blank" rel="noopener" data-i18n="heroCta2">Join our community</a>
           </div>
         </div>
         <div style="position:relative;">
@@ -340,45 +385,61 @@
 
     <div class="statbar">
       <div class="wrap">
-        <div class="stat"><div class="num" data-target="10000" data-suffix="+">0</div><div class="cap">community members reached</div></div>
-        <div class="stat"><div class="num" data-target="1100" data-suffix="+">0</div><div class="cap">children reached through KITI</div></div>
-        <div class="stat"><div class="num" data-target="500" data-suffix="+">0</div><div class="cap">career enthusiasts guided through our Mentorship Initiative</div></div>
-        <div class="stat"><div class="num" data-target="500" data-suffix="+">0</div><div class="cap">scholarships disbursed through TTSF</div></div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num-wrap"><span class="num" data-target="10000">0</span><span class="plus">+</span></div>
+            <div class="stat-cap" data-i18n="statMembers">Community members reached</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num-wrap"><span class="num" data-target="1100">0</span><span class="plus">+</span></div>
+            <div class="stat-cap" data-i18n="statChildren">Children reached through KITI</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num-wrap"><span class="num" data-target="500">0</span><span class="plus">+</span></div>
+            <div class="stat-cap" data-i18n="statMentorship">Career enthusiasts guided through Mentorship</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num-wrap"><span class="num" data-target="500">0</span><span class="plus">+</span></div>
+            <div class="stat-cap" data-i18n="statScholarships">Scholarships disbursed through TTSF</div>
+          </div>
+        </div>
+        <svg class="stat-doodle" width="90" height="80" viewBox="0 0 90 80" fill="none" aria-hidden="true">
+          <path d="M8 8c14 0 22 10 20 20S12 42 14 30 34 10 48 18s10 24-2 26" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M40 60l4 12 10-8" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
     </div>
 
     <section>
       <div class="wrap">
         <div class="section-head">
-          <span class="section-kicker">Our initiatives</span>
-          <h2>Three ways we invest in your next step</h2>
-          <p>Wherever you're starting from, there's a door in. Each initiative meets a different stage of the same journey — from a child's first look at tech, to a professional's next big leap.</p>
+          <span class="section-kicker" data-i18n="initKicker">Our initiatives</span>
+          <h2 data-i18n="initHeading">Three ways we invest in your next step</h2>
+          <p data-i18n="initSub">Wherever you're starting from, there's a door in. Each initiative meets a different stage of the same journey — from a child's first look at tech, to a professional's next big leap.</p>
         </div>
         <div class="feature-grid">
           <div class="feature-card">
-            <div class="feature-icon">🎓</div>
             <span class="tag">TTSF</span>
-            <h3>TrybebyFUSE Scholarship Fund</h3>
-            <p>Removing financial barriers so passionate learners can access high-quality courses and build careers in tech.</p>
-            <button class="cta-link nav-item" data-page="scholarship">Learn more</button>
+            <h3 data-i18n="ttsfTitle">TrybebyFUSE Scholarship Fund</h3>
+            <p data-i18n="ttsfDesc">Removing financial barriers so passionate learners can access high-quality courses and build careers in tech.</p>
+            <button class="cta-link nav-item" data-page="scholarship" data-i18n="learnMore">Learn more</button>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">🧒</div>
             <span class="tag">KITI</span>
-            <h3>Kids in Tech Initiative</h3>
-            <p>Bringing basic tech education and awareness directly into primary schools in underserved communities.</p>
-            <button class="cta-link nav-item" data-page="kiti">Learn more</button>
+            <h3 data-i18n="kitiTitle">Kids in Tech Initiative</h3>
+            <p data-i18n="kitiDesc">Bringing basic tech education and awareness directly into primary schools in underserved communities.</p>
+            <button class="cta-link nav-item" data-page="kiti" data-i18n="learnMore">Learn more</button>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">🤝</div>
             <span class="tag">MENTORSHIP</span>
-            <h3>TrybebyFUSE Mentorship Initiative</h3>
-            <p>A tracked, structured journey connecting mentees with seasoned experts for consistent, actionable guidance.</p>
-            <button class="cta-link nav-item" data-page="mentorship">Learn more</button>
+            <h3 data-i18n="mentorTitle">TrybebyFUSE Mentorship Initiative</h3>
+            <p data-i18n="mentorDesc">A tracked, structured journey connecting mentees with seasoned experts for consistent, actionable guidance.</p>
+            <button class="cta-link nav-item" data-page="mentorship" data-i18n="learnMore">Learn more</button>
           </div>
         </div>
       </div>
     </section>
+
 
     <section>
       <div class="wrap">
@@ -601,10 +662,12 @@
 
 <footer>
   <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <span class="brand">TrybebyFUSE</span>
-        <p>Powered by FUSE Varsity — a growth and learning community for young Africans, helping members build careers, gain in-demand skills, and connect with mentors.</p>
+    <div class="foot-top">
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <button class="nav-item" data-page="home">Home</button>
+        <button class="nav-item" data-page="about">About Us</button>
+        <button class="nav-item" data-page="contact">Contact</button>
       </div>
       <div class="foot-col">
         <h4>Initiatives</h4>
@@ -613,21 +676,33 @@
         <button class="nav-item" data-page="mentorship">Mentorship Initiative</button>
       </div>
       <div class="foot-col">
-        <h4>About</h4>
-        <button class="nav-item" data-page="about">About us</button>
-        <button class="nav-item" data-page="contact">Contact</button>
-      </div>
-      <div class="foot-col">
         <h4>Connect</h4>
         <a href="https://www.instagram.com/trybebyfuse/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://x.com/TrybebyFUSE" target="_blank" rel="noopener">X (Twitter)</a>
         <a href="https://medium.com/@trybebyfuse" target="_blank" rel="noopener">Medium</a>
         <a href="mailto:trybebyfuse@gmail.com">trybebyfuse@gmail.com</a>
       </div>
+      <div class="subscribe-card">
+        <h4>Subscribe</h4>
+        <form class="subscribe-form" id="subscribeForm">
+          <input type="email" placeholder="Email Address" required aria-label="Email address">
+          <button type="submit" aria-label="Subscribe">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="subscribe-note">Subscribe to our newsletter for the latest updates and news.</p>
+        <p class="subscribe-success" id="subscribeSuccess">Thanks — you're on the list!</p>
+      </div>
     </div>
+    <hr class="foot-divider">
     <div class="foot-bottom">
-      <span>© 2026 TrybebyFUSE. All rights reserved.</span>
-      <span>Unite, learn, thrive together with the right skills of tomorrow.</span>
+      <span class="brand">TrybebyFUSE</span>
+      <span class="foot-copy">© 2026 TrybebyFUSE. All rights reserved.</span>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/trybebyfuse/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        <a href="https://x.com/TrybebyFUSE" target="_blank" rel="noopener" aria-label="X">X</a>
+        <a href="https://medium.com/@trybebyfuse" target="_blank" rel="noopener" aria-label="Medium">Md</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -674,6 +749,122 @@
     mobileInitToggle.setAttribute('aria-expanded', isOpen);
   });
 
+  /* ---------- Language switcher ---------- */
+  const translations = {
+    en: {
+      navHome:"Home", navAbout:"About Us", navInitiatives:"Initiatives", navContact:"Contact",
+      followUs:"Follow us", joinUs:"Join us", joinCommunity:"Join our community",
+      heroEyebrow:"Powered by FUSE Varsity",
+      heroHeading:"Show me your Trybe, and I'll show you where you're headed.",
+      heroLede:"TrybebyFUSE is a growth and learning community for young Africans — a place where learning meets action, and ambition meets opportunity. Members build career-ready skills, get matched with mentors, and turn potential into progress, together.",
+      heroCta1:"See our initiatives", heroCta2:"Join our community",
+      statMembers:"Community members reached", statChildren:"Children reached through KITI",
+      statMentorship:"Career enthusiasts guided through Mentorship", statScholarships:"Scholarships disbursed through TTSF",
+      initKicker:"Our initiatives", initHeading:"Three ways we invest in your next step",
+      initSub:"Wherever you're starting from, there's a door in. Each initiative meets a different stage of the same journey — from a child's first look at tech, to a professional's next big leap.",
+      ttsfTitle:"TrybebyFUSE Scholarship Fund", ttsfDesc:"Removing financial barriers so passionate learners can access high-quality courses and build careers in tech.",
+      kitiTitle:"Kids in Tech Initiative", kitiDesc:"Bringing basic tech education and awareness directly into primary schools in underserved communities.",
+      mentorTitle:"TrybebyFUSE Mentorship Initiative", mentorDesc:"A tracked, structured journey connecting mentees with seasoned experts for consistent, actionable guidance.",
+      learnMore:"Learn more"
+    },
+    yo: {
+      navHome:"Ile", navAbout:"Nípa Wa", navInitiatives:"Àwọn Ètò", navContact:"Kàn Sí Wa",
+      followUs:"Tọ̀ Wá Lẹ́yìn", joinUs:"Dara Pọ̀", joinCommunity:"Dara Pọ̀ Mọ́ Àwùjọ Wa",
+      heroEyebrow:"Ti FUSE Varsity ń ṣe àtìlẹyìn",
+      heroHeading:"Fi Trybe rẹ hàn mí, màá sì fi ibi tí o ń lọ hàn ọ́.",
+      heroLede:"TrybebyFUSE jẹ́ àwùjọ ìdàgbàsókè àti ẹ̀kọ́ fún àwọn ọ̀dọ́ Áfíríkà — ibi tí ẹ̀kọ́ ti ń pàdé ìṣe, tí ìfẹ́-ọkàn sì ń pàdé àǹfààní. Àwọn ọmọ ẹgbẹ́ ń kọ́ ìmọ̀ iṣẹ́, wọ́n sì ń rí olùdámọ̀ràn tí ó bá wọn mu.",
+      heroCta1:"Wo àwọn ètò wa", heroCta2:"Dara pọ̀ mọ́ àwùjọ wa",
+      statMembers:"Àwọn ọmọ ẹgbẹ́ àwùjọ tí a dé bá", statChildren:"Àwọn ọmọdé tí KITI dé bá",
+      statMentorship:"Àwọn tí a tọ́ sọ́nà nípasẹ̀ Ìtọ́sọ́nà", statScholarships:"Ìrànlọ́wọ́ ẹ̀kọ́ tí a fún nípasẹ̀ TTSF",
+      initKicker:"Àwọn Ètò Wa", initHeading:"Ọ̀nà mẹ́ta tí à ń gbà ràn ọ́ lọ́wọ́",
+      initSub:"Níbikíbi tí o bá ti ń bẹ̀rẹ̀, ọ̀nà kan wà fún ọ. Ètò kọ̀ọ̀kan ń bá ọ lọ ní ìpele mìíràn nínú ìrìn-àjò kan náà.",
+      ttsfTitle:"TTSF — Owó Ìrànlọ́wọ́ Ẹ̀kọ́", ttsfDesc:"À ń mú ìdíwọ́ owó kúrò kí àwọn tí ó fẹ́ kọ́ nǹkan lè rí ẹ̀kọ́ tí ó dára gbà kí wọ́n sì kọ́ iṣẹ́ nínú ìmọ̀ ẹ̀rọ.",
+      kitiTitle:"KITI — Ìmọ̀ Ẹ̀rọ Fún Àwọn Ọmọdé", kitiDesc:"À ń mú ẹ̀kọ́ ìmọ̀ ẹ̀rọ àkọ́kọ́ wá sí àwọn ilé-ìwé alákọ̀ọ́bẹ̀rẹ̀ ní àwọn àgbègbè tí kò tí ì rí irú rẹ̀.",
+      mentorTitle:"Ìtọ́sọ́nà TrybebyFUSE", mentorDesc:"Ìrìn-àjò tí a ṣètò dáadáa tí ó ń so àwọn akẹ́kọ̀ọ́ pọ̀ mọ́ àwọn amòye fún ìtọ́sọ́nà pípé.",
+      learnMore:"Mọ̀ Sí I Yá"
+    },
+    ig: {
+      navHome:"Ụlọ", navAbout:"Maka Anyị", navInitiatives:"Mmemme", navContact:"Kpọtụrụ Anyị",
+      followUs:"Soro Anyị", joinUs:"Sonye", joinCommunity:"Sonye n'Obodo Anyị",
+      heroEyebrow:"FUSE Varsity na-akwado ya",
+      heroHeading:"Gosi m Trybe gị, m ga-egosi gị ebe ị na-aga.",
+      heroLede:"TrybebyFUSE bụ obodo mmụta na uto maka ụmụ Africa — ebe mmụta na-ezute omume, ma nzube na-ezute ohere. Ndị otu na-ewulite nkà ọrụ ha, na-enwetakwa ndị nduzi kwesịrị ekwesị.",
+      heroCta1:"Lelee mmemme anyị", heroCta2:"Sonye n'obodo anyị",
+      statMembers:"Ndị otu obodo anyị ruru", statChildren:"Ụmụaka KITI ruru",
+      statMentorship:"Ndị a na-eduzi site na Nduzi Ọrụ", statScholarships:"Akwụkwọ ego agụmakwụkwọ TTSF nyefere",
+      initKicker:"Mmemme Anyị", initHeading:"Ụzọ atọ anyị si enyere gị aka na nzọụkwụ ọzọ",
+      initSub:"N'agbanyeghị ebe ị malitere, ọnụ ụzọ dị. Mmemme ọ bụla na-ezute gị n'ọkwa ọzọ nke otu njem ahụ.",
+      ttsfTitle:"TTSF — Ego Agụmakwụkwọ", ttsfDesc:"Anyị na-ewepụ ihe mgbochi ego ka ndị chọrọ mmụta nweta ozizi dị mma ma wulite ọrụ na teknụzụ.",
+      kitiTitle:"KITI — Teknụzụ Maka Ụmụaka", kitiDesc:"Anyị na-eweta mmụta teknụzụ na mmata ozugbo n'ime ụlọ akwụkwọ praịmarị dị n'agbata obodo na-enwebeghị ohere.",
+      mentorTitle:"Nduzi Ọrụ TrybebyFUSE", mentorDesc:"Njem edoziri nke ọma na-ejikọta ndị a na-eduzi na ndị ọkachamara maka nduzi na-aga n'ihu.",
+      learnMore:"Mụtakwuo"
+    },
+    ha: {
+      navHome:"Gida", navAbout:"Game da Mu", navInitiatives:"Ayyuka", navContact:"Tuntuɓe Mu",
+      followUs:"Bi Mu", joinUs:"Shiga", joinCommunity:"Shiga Al'ummarmu",
+      heroEyebrow:"FUSE Varsity ke ɗaukar nauyi",
+      heroHeading:"Nuna min Trybe naka, zan nuna maka inda kake tafiya.",
+      heroLede:"TrybebyFUSE al'umma ce ta koyo da bunƙasa domin matasan Afirka — inda koyo ke haɗuwa da aiki, kuma buri ke haɗuwa da dama. Membobi suna gina ƙwarewar sana'a, suna samun jagora, kuma suna canza dama zuwa ci gaba tare.",
+      heroCta1:"Duba ayyukanmu", heroCta2:"Shiga al'ummarmu",
+      statMembers:"Membobin al'umma da muka kai wa", statChildren:"Yaran da KITI ta kai wa",
+      statMentorship:"Masu neman sana'a da aka jagoranta ta Shirin Jagora", statScholarships:"Tallafin karatu da aka bayar ta TTSF",
+      initKicker:"Ayyukanmu", initHeading:"Hanyoyi guda uku da muke saka hannun jari a matakinku na gaba",
+      initSub:"Ko ina ka fara, akwai hanyar shiga. Kowane aiki yana biye da wani mataki na tafiya ɗaya.",
+      ttsfTitle:"TTSF — Asusun Tallafin Karatu", ttsfDesc:"Muna cire matsalolin kuɗi domin masu son koyo su sami ingantattun kwasa-kwasai su gina sana'a a fannin fasaha.",
+      kitiTitle:"KITI — Fasaha Ga Yara", kitiDesc:"Muna kawo ilimin fasaha na farko da wayar da kai kai tsaye zuwa makarantun firamare a al'ummomin da ba su da isassun kayan aiki.",
+      mentorTitle:"Shirin Jagora na TrybebyFUSE", mentorDesc:"Tafiya mai tsari da ke haɗa waɗanda ake koyawa da ƙwararrun masana domin jagora mai daidaito.",
+      learnMore:"Ƙara Koyo"
+    }
+  };
+
+  const langToggle = document.getElementById('langToggle');
+  const langPanel = document.getElementById('langPanel');
+  const langLabel = document.getElementById('langLabel');
+  const langNames = {en:"English", yo:"Yorùbá", ig:"Igbo", ha:"Hausa"};
+
+  function closeLangPanel(){
+    langPanel.classList.remove('open');
+    langToggle.setAttribute('aria-expanded','false');
+  }
+  langToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = langPanel.classList.toggle('open');
+    langToggle.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', (e) => {
+    if(!langPanel.contains(e.target) && !langToggle.contains(e.target)){
+      closeLangPanel();
+    }
+  });
+
+  function setLanguage(lang){
+    const dict = translations[lang] || translations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if(dict[key]) el.textContent = dict[key];
+    });
+    langLabel.textContent = langNames[lang];
+    document.querySelectorAll('.lang-item').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.documentElement.lang = lang;
+    closeLangPanel();
+  }
+  document.querySelectorAll('.lang-item').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
+
+  /* ---------- Subscribe form (front-end only placeholder) ---------- */
+  const subscribeForm = document.getElementById('subscribeForm');
+  const subscribeSuccess = document.getElementById('subscribeSuccess');
+  if(subscribeForm){
+    subscribeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      subscribeSuccess.classList.add('show');
+      subscribeForm.reset();
+    });
+  }
+
   /* ---------- Page routing ---------- */
   function goToPage(pageId, updateHash){
     pages.forEach(p => p.classList.toggle('active', p.id === 'page-' + pageId));
@@ -701,13 +892,12 @@
 
   /* ---------- Animated stat counters ---------- */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const statNums = document.querySelectorAll('.stat .num[data-target]');
+  const statNums = document.querySelectorAll('.stat-num-wrap .num[data-target]');
 
   function animateCount(el){
     const target = parseInt(el.dataset.target, 10);
-    const suffix = el.dataset.suffix || '';
     if(reduceMotion){
-      el.textContent = target.toLocaleString() + suffix;
+      el.textContent = target.toLocaleString();
       return;
     }
     const duration = 1500;
@@ -716,11 +906,11 @@
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       const value = Math.floor(eased * target);
-      el.textContent = value.toLocaleString() + suffix;
+      el.textContent = value.toLocaleString();
       if(progress < 1){
         requestAnimationFrame(tick);
       } else {
-        el.textContent = target.toLocaleString() + suffix;
+        el.textContent = target.toLocaleString();
       }
     }
     requestAnimationFrame(tick);
@@ -740,6 +930,7 @@
     statNums.forEach(animateCount);
   }
 </script>
+
 
 </body>
 </html>
